@@ -1,0 +1,61 @@
+type Prediction @entity(immutable: true) {
+  id: Bytes!
+  instance: Bytes! # address
+  impType: Int! # uint8
+  token: Bytes! # address
+  oracleAddress: Bytes! # address
+  adminAddress: Bytes! # address
+  operatorAddress: Bytes! # address
+  intervalSeconds: BigInt! # uint256
+  bufferSeconds: BigInt! # uint256
+  minBetAmount: BigInt! # uint256
+  oracleUpdateAllowance: BigInt! # uint256
+  priceFeedId: Bytes! # bytes32
+  treasuryFee: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Epoch @entity(immutable: false) {
+  id: ID!
+
+  bullBetsCount: BigInt! # uint256
+  bearBetsCount: BigInt! # uint256
+  bullBetAmount: BigInt! # uint256
+  bearBetAmount: BigInt! # uint256
+  totalBetAmount: BigInt! # uint256
+
+  startPrice: BigDecimal! # uint256
+  closePrice: BigDecimal! # uint256
+
+  isBullWin: Boolean!
+  isBearWin: Boolean!
+  isFinished: Boolean!
+
+  instance: String! # address
+  epoch: BigInt! # uint256
+
+  createdAtBlockNumber: BigInt!
+  createdAtBlockTimestamp: BigInt!
+  lastUpdatedAtTimestamp: BigInt!
+}
+
+type Game @entity(immutable: false) {
+  id: ID!
+
+  instance: String! # address
+  epoch: BigInt! # uint256
+  sender: Bytes! # address
+  isBullBet: Boolean!
+  amount: BigInt! # uint256
+  isClaimed: Boolean!
+  claimedAmount: BigInt! # uint256
+
+  lastUpdatedAtTimestamp: BigInt!
+  placeBetTxHash: String!
+  placeBetTimestamp: BigInt!
+  claimTxHash: String
+  claimTimestamp: BigInt
+
+}

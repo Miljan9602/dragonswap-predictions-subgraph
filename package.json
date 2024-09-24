@@ -1,0 +1,20 @@
+{
+  "name": "dragonswap-predictions",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ dragonswap-predictions",
+    "create-local": "graph create --node http://localhost:8020/ dragonswap-predictions",
+    "remove-local": "graph remove --node http://localhost:8020/ dragonswap-predictions",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 dragonswap-predictions",
+    "test": "graph test",
+
+    "goldsky-prod" : "goldsky subgraph deploy dragonswap-predictions-test/1.0.1 --path ."
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.78.0",
+    "@graphprotocol/graph-ts": "0.32.0"
+  },
+  "devDependencies": { "matchstick-as": "0.5.0" }
+}
