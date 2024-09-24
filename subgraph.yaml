@@ -4,19 +4,40 @@ indexerHints:
 schema:
   file: ./schema.graphql
 dataSources:
-  - kind: ethereum
-    name: Prediction
+  - kind: ethereum/contract
+    name: Factory
     network: sei
     source:
-      address: "0x5b31c97eb5fd1c13bc01a0f6fd5d0bbf0170da9b"
-      abi: Predictions
-      startBlock: 103945435
+      address: "0xB34B27E0FB109A7fA3fAA0596d4D115C423c785b"
+      abi: Factory
+      startBlock: 103945534
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Prediction
+      abis:
+        - name: Factory
+          file: ./abis/Factory.json
+      eventHandlers:
+        - event: Deployed(indexed address,indexed uint8,address,address,address,address,uint256,uint256,uint256,uint256,bytes32,uint256)
+          handler: handleDeployed
+      file: ./src/factory.ts
+templates:
+  - kind: ethereum/contract
+    name: Prediction
+    network: sei
+    source:
+      abi: Predictions
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/prediction.ts
+      entities:
+        - Game
+        - Epoch
       abis:
         - name: Predictions
           file: ./abis/Predictions.json
@@ -33,5 +54,3 @@ dataSources:
           handler: handleLockRound
         - event: EndRound(indexed uint256,int256)
           handler: handleEndRound
-      file: ./src/prediction.ts
-

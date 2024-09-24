@@ -19,6 +19,20 @@ export function handleBetBear(event: BetBearEvent): void {
   epoch.totalBetAmount = epoch.totalBetAmount.plus(event.params.amount)
   epoch.lastUpdatedAtTimestamp = event.block.timestamp
   epoch.save()
+
+  let gameId = event.address.toHexString().concat('-').concat(event.params.sender.toHexString()).concat('').concat(event.params.epoch.toString())
+  let entity = new Game(gameId)
+  entity.instance = event.address.toHexString()
+  entity.sender = event.params.sender
+  entity.amount = event.params.amount
+  entity.isClaimed = false
+  entity.epoch = event.params.epoch
+  entity.isBullBet = false
+  entity.claimedAmount = BigInt.zero()
+  entity.lastUpdatedAtTimestamp = event.block.timestamp
+  entity.placeBetTxHash = event.transaction.hash.toHexString()
+  entity.placeBetTimestamp = event.block.timestamp
+  entity.save()
 }
 
 export function handleBetBull(event: BetBullEvent): void {
@@ -26,23 +40,43 @@ export function handleBetBull(event: BetBullEvent): void {
   getOrCreateEpoch(event.address, event.params.epoch, event.block);
 
   let epoch = getOrCreateEpoch(event.address, event.params.epoch, event.block);
-  epoch.bullBetAmount = epoch.bearBetAmount.plus(event.params.amount)
+  epoch.bullBetAmount = epoch.bullBetAmount.plus(event.params.amount)
   epoch.bullBetsCount = epoch.bullBetsCount.plus(BigInt.fromI32(1))
   epoch.totalBetAmount = epoch.totalBetAmount.plus(event.params.amount)
   epoch.lastUpdatedAtTimestamp = event.block.timestamp
   epoch.save()
+
+  let gameId = event.address.toHexString().concat('-').concat(event.params.sender.toHexString()).concat('').concat(event.params.epoch.toString())
+
+  let entity = new Game(gameId)
+  entity.instance = event.address.toHexString()
+  entity.sender = event.params.sender
+  entity.amount = event.params.amount
+  entity.isClaimed = false
+  entity.epoch = event.params.epoch
+  entity.isBullBet = true
+  entity.claimedAmount = BigInt.zero()
+  entity.lastUpdatedAtTimestamp = event.block.timestamp
+  entity.placeBetTxHash = event.transaction.hash.toHexString()
+  entity.placeBetTimestamp = event.block.timestamp
+  entity.save()
 }
 
 export function handleClaim(event: ClaimEvent): void {
-  //
-  // let gameId = event.address.toHexString().concat('-').concat(event.params.sender.toHexString()).concat('').concat(event.params.epoch.toString())
-  //
-  // let entity = new Game(gameId)
-  // entity.isClaimed = true
-  // entity.claimedAmount = event.params.amount
-  // entity.claimTimestamp = event.block.timestamp
-  // entity.claimTxHash = event.transaction.hash.toHexString()
-  // entity.save()
+
+  let gameId = event.address.toHexString().concat('-').concat(event.params.sender.toHexString()).concat('').concat(event.params.epoch.toString())
+
+  let entity = Game.load(gameId)
+
+  if (entity === null) {
+    throw new Error('Game not found for claim with gameId: ' + event.params.epoch.toString() + ' instance: ' + event.address.toHexString() + ' sender: ' + event.params.sender.toHexString())
+  }
+
+  entity.isClaimed = true
+  entity.claimedAmount = event.params.amount
+  entity.claimTimestamp = event.block.timestamp
+  entity.claimTxHash = event.transaction.hash.toHexString()
+  entity.save()
 }
 
 export function handleStartRound(event: StartRoundEvent): void {
