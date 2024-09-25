@@ -6,10 +6,31 @@ import {
   LockRound as LockRoundEvent,
   StartRound as StartRoundEvent,
 } from "../generated/templates/Prediction/Predictions"
-import {Epoch, Game,} from "../generated/schema"
+import {Epoch, Game, PredicitionUserStats, Prediction,} from "../generated/schema"
 import {Address, BigDecimal, BigInt, Bytes, ethereum} from "@graphprotocol/graph-ts";
 
 export function handleBetBear(event: BetBearEvent): void {
+
+  let userStats = getOrCreatePredictionUserStats(event.address.toHexString(), event.params.sender.toHexString())
+  let instance = Prediction.load(event.address)
+
+  if (instance === null) {
+    throw new Error('Prediction not found for bet with instance: ' + event.address.toHexString())
+  }
+
+  instance.totalBearBets = instance.totalBearBets.plus(BigInt.fromI32(1))
+  instance.totalBets = instance.totalBets.plus(BigInt.fromI32(1))
+  instance.totalVolume = instance.totalVolume.plus(event.params.amount)
+
+  if (userStats.totalBets.equals(BigInt.zero())) {
+    instance.numberOfUniqueUsers = instance.numberOfUniqueUsers.plus(BigInt.fromI32(1))
+  }
+
+  instance.save()
+
+  userStats.totalBets = userStats.totalBets.plus(BigInt.fromI32(1))
+  userStats.totalBearBets = userStats.totalBearBets.plus(BigInt.fromI32(1))
+  userStats.save()
 
   getOrCreateEpoch(event.address, event.params.epoch, event.block);
 
@@ -39,7 +60,26 @@ export function handleBetBear(event: BetBearEvent): void {
 
 export function handleBetBull(event: BetBullEvent): void {
 
-  getOrCreateEpoch(event.address, event.params.epoch, event.block);
+  let userStats = getOrCreatePredictionUserStats(event.address.toHexString(), event.params.sender.toHexString())
+  let instance = Prediction.load(event.address)
+
+  if (instance === null) {
+    throw new Error('Prediction not found for bet with instance: ' + event.address.toHexString())
+  }
+
+  instance.totalBullBets = instance.totalBullBets.plus(BigInt.fromI32(1))
+  instance.totalBets = instance.totalBets.plus(BigInt.fromI32(1))
+  instance.totalVolume = instance.totalVolume.plus(event.params.amount)
+
+  if (userStats.totalBets.equals(BigInt.zero())) {
+    instance.numberOfUniqueUsers = instance.numberOfUniqueUsers.plus(BigInt.fromI32(1))
+  }
+
+  instance.save()
+
+  userStats.totalBets = userStats.totalBets.plus(BigInt.fromI32(1))
+  userStats.totalBearBets = userStats.totalBearBets.plus(BigInt.fromI32(1))
+  userStats.save()
 
   let epoch = getOrCreateEpoch(event.address, event.params.epoch, event.block);
   epoch.bullBetAmount = epoch.bullBetAmount.plus(event.params.amount)
@@ -75,6 +115,10 @@ export function handleClaim(event: ClaimEvent): void {
   if (entity === null) {
     throw new Error('Game not found for claim with gameId: ' + event.params.epoch.toString() + ' instance: ' + event.address.toHexString() + ' sender: ' + event.params.sender.toHexString())
   }
+
+  let userStats = getOrCreatePredictionUserStats(event.address.toHexString(), event.params.sender.toHexString())
+  userStats.totalClaimed = userStats.totalClaimed.plus(event.params.amount)
+  userStats.save()
 
   entity.isClaimed = true
   entity.claimedAmount = event.params.amount
@@ -119,7 +163,7 @@ function getOrCreateEpoch(instance: Address, epoch: BigInt, block: ethereum.Bloc
 
   const epochId = instance.toHexString().concat("-").concat(epoch.toHexString())
 
-  var entitiy = Epoch.load(epochId)
+  let entitiy = Epoch.load(epochId)
 
   if (entitiy !== null) {
     return entitiy
@@ -148,6 +192,33 @@ function getOrCreateEpoch(instance: Address, epoch: BigInt, block: ethereum.Bloc
   entitiy.save()
 
   return entitiy
+}
+
+/**
+ * Get or create PredictionUserStats
+ *
+ * @param instance
+ * @param user
+ */
+function getOrCreatePredictionUserStats(instance: string, user: string) : PredicitionUserStats {
+  const key = instance.concat("-").concat(user)
+
+  let stats = PredicitionUserStats.load(key)
+
+  if (stats !== null) {
+    return stats;
+  }
+
+  stats = new PredicitionUserStats(key)
+  stats.instance = instance
+  stats.user = user
+  stats.totalBets = BigInt.zero()
+  stats.totalBullBets = BigInt.zero()
+  stats.totalBearBets = BigInt.zero()
+  stats.totalClaimed = BigInt.zero()
+  stats.save()
+
+  return stats
 }
 
 function exponentToBigDecimal(decimals: BigInt): BigDecimal {

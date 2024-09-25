@@ -6,17 +6,18 @@ import {
 } from "../generated/schema"
 
 import {Prediction as PredictionTemplate} from "../generated/templates"
+import {BigInt} from "@graphprotocol/graph-ts";
 
 export function handleDeployed(event: DeployedEvent): void {
 
-  const key = event.transaction.hash.concatI32(event.logIndex.toI32());
+  const key = event.params.instance;
   const prediction = Prediction.load(key)
 
   if (prediction !== null) {
     return
   }
 
-  let entity = new Prediction(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  let entity = new Prediction(key)
 
   entity.instance = event.params.instance
   entity.impType = event.params.impType
@@ -30,6 +31,12 @@ export function handleDeployed(event: DeployedEvent): void {
   entity.oracleUpdateAllowance = event.params.oracleUpdateAllowance
   entity.priceFeedId = event.params.priceFeedId
   entity.treasuryFee = event.params.treasuryFee
+
+  entity.totalVolume = BigInt.zero()
+  entity.numberOfUniqueUsers = BigInt.zero()
+  entity.totalBets = BigInt.zero()
+  entity.totalBullBets = BigInt.zero()
+  entity.totalBearBets = BigInt.zero()
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
