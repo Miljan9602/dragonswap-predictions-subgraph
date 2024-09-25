@@ -39,6 +39,7 @@ type Epoch @entity(immutable: false) {
   createdAtBlockNumber: BigInt!
   createdAtBlockTimestamp: BigInt!
   lastUpdatedAtTimestamp: BigInt!
+  lastUpdatedAtBlockNumber: BigInt!
 }
 
 type Game @entity(immutable: false) {
@@ -53,6 +54,7 @@ type Game @entity(immutable: false) {
   claimedAmount: BigInt! # uint256
 
   lastUpdatedAtTimestamp: BigInt!
+  lastUpdatedAtBlockNumber: BigInt!
   placeBetTxHash: String!
   placeBetTimestamp: BigInt!
   claimTxHash: String

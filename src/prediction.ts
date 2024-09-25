@@ -18,6 +18,7 @@ export function handleBetBear(event: BetBearEvent): void {
   epoch.bearBetsCount = epoch.bearBetsCount.plus(BigInt.fromI32(1))
   epoch.totalBetAmount = epoch.totalBetAmount.plus(event.params.amount)
   epoch.lastUpdatedAtTimestamp = event.block.timestamp
+  epoch.lastUpdatedAtBlockNumber = event.block.number
   epoch.save()
 
   let gameId = event.address.toHexString().concat('-').concat(event.params.sender.toHexString()).concat('').concat(event.params.epoch.toString())
@@ -30,6 +31,7 @@ export function handleBetBear(event: BetBearEvent): void {
   entity.isBullBet = false
   entity.claimedAmount = BigInt.zero()
   entity.lastUpdatedAtTimestamp = event.block.timestamp
+  entity.lastUpdatedAtBlockNumber = event.block.number
   entity.placeBetTxHash = event.transaction.hash.toHexString()
   entity.placeBetTimestamp = event.block.timestamp
   entity.save()
@@ -44,6 +46,7 @@ export function handleBetBull(event: BetBullEvent): void {
   epoch.bullBetsCount = epoch.bullBetsCount.plus(BigInt.fromI32(1))
   epoch.totalBetAmount = epoch.totalBetAmount.plus(event.params.amount)
   epoch.lastUpdatedAtTimestamp = event.block.timestamp
+  epoch.lastUpdatedAtBlockNumber = event.block.number
   epoch.save()
 
   let gameId = event.address.toHexString().concat('-').concat(event.params.sender.toHexString()).concat('').concat(event.params.epoch.toString())
@@ -57,6 +60,7 @@ export function handleBetBull(event: BetBullEvent): void {
   entity.isBullBet = true
   entity.claimedAmount = BigInt.zero()
   entity.lastUpdatedAtTimestamp = event.block.timestamp
+  entity.lastUpdatedAtBlockNumber = event.block.number
   entity.placeBetTxHash = event.transaction.hash.toHexString()
   entity.placeBetTimestamp = event.block.timestamp
   entity.save()
@@ -76,6 +80,7 @@ export function handleClaim(event: ClaimEvent): void {
   entity.claimedAmount = event.params.amount
   entity.claimTimestamp = event.block.timestamp
   entity.claimTxHash = event.transaction.hash.toHexString()
+  entity.lastUpdatedAtBlockNumber = event.block.number
   entity.save()
 }
 
@@ -91,6 +96,7 @@ export function handleLockRound(event: LockRoundEvent): void {
 
   epoch.startPrice = event.params.price.toBigDecimal().div(exponentToBigDecimal(BigInt.fromI32(8)))
   epoch.lastUpdatedAtTimestamp = event.block.timestamp
+  epoch.lastUpdatedAtBlockNumber = event.block.number
   epoch.save()
 }
 
@@ -104,6 +110,7 @@ export function handleEndRound(event: EndRoundEvent): void {
   epoch.isBullWin = epoch.closePrice > epoch.startPrice
   epoch.isBearWin = epoch.closePrice < epoch.startPrice
   epoch.isFinished = true
+  epoch.lastUpdatedAtBlockNumber = event.block.number
 
   epoch.save()
 }
@@ -136,6 +143,7 @@ function getOrCreateEpoch(instance: Address, epoch: BigInt, block: ethereum.Bloc
   entitiy.createdAtBlockNumber = block.number
   entitiy.createdAtBlockTimestamp = block.timestamp
   entitiy.lastUpdatedAtTimestamp = block.timestamp
+  entitiy.lastUpdatedAtBlockNumber = block.number
   entitiy.epoch = epoch
   entitiy.save()
 
