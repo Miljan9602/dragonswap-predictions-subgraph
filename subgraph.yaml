@@ -8,9 +8,9 @@ dataSources:
     name: Factory
     network: sei
     source:
-      address: "0xB34B27E0FB109A7fA3fAA0596d4D115C423c785b"
+      address: "0x35c7c64fb35a09d3375c801d8d293b1ffddc75f5"
       abi: Factory
-      startBlock: 103945534
+      startBlock: 115714186
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -21,7 +21,7 @@ dataSources:
         - name: Factory
           file: ./abis/Factory.json
       eventHandlers:
-        - event: Deployed(indexed address,indexed uint8,address,address,address,address,uint256,uint256,uint256,uint256,bytes32,uint256)
+        - event: Deployed(indexed address,indexed uint8,address,address,address,address,uint256,uint256,uint256,uint256,bytes32,uint256,string)
           handler: handleDeployed
       file: ./src/factory.ts
 templates:
@@ -42,15 +42,13 @@ templates:
         - name: Predictions
           file: ./abis/Predictions.json
       eventHandlers:
-        - event: BetBear(indexed address,indexed uint256,uint256)
-          handler: handleBetBear
-        - event: BetBull(indexed address,indexed uint256,uint256)
-          handler: handleBetBull
+        - event: Bet(indexed address,indexed uint256,uint256,bool)
+          handler: handleBet
         - event: Claim(indexed address,indexed uint256,uint256)
           handler: handleClaim
         - event: StartRound(indexed uint256)
           handler: handleStartRound
-        - event: LockRound(indexed uint256,int256)
+        - event: LockRound(indexed uint256,uint256)
           handler: handleLockRound
-        - event: EndRound(indexed uint256,int256)
+        - event: EndRound(indexed uint256,uint256)
           handler: handleEndRound

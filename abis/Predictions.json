@@ -1,94 +1,80 @@
 [
   {
-    "inputs": [],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "target",
-        "type": "address"
-      }
+      { "internalType": "address", "name": "target", "type": "address" }
     ],
     "name": "AddressEmptyCode",
     "type": "error"
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "account",
-        "type": "address"
-      }
+      { "internalType": "address", "name": "account", "type": "address" }
     ],
     "name": "AddressInsufficientBalance",
     "type": "error"
   },
+  { "inputs": [], "name": "AlreadyMadeABet", "type": "error" },
+  { "inputs": [], "name": "BetAmountTooLow", "type": "error" },
+  { "inputs": [], "name": "BetUnavailable", "type": "error" },
+  { "inputs": [], "name": "CannotCloseYet", "type": "error" },
+  { "inputs": [], "name": "CannotLockYet", "type": "error" },
+  { "inputs": [], "name": "ClosingPeriodEnded", "type": "error" },
+  { "inputs": [], "name": "EnforcedPause", "type": "error" },
+  { "inputs": [], "name": "ExpectedPause", "type": "error" },
+  { "inputs": [], "name": "FailedInnerCall", "type": "error" },
+  { "inputs": [], "name": "GenesisAlreadyLocked", "type": "error" },
+  { "inputs": [], "name": "GenesisAlreadyStarted", "type": "error" },
+  { "inputs": [], "name": "GenesisNotManaged", "type": "error" },
+  { "inputs": [], "name": "GenesisNotStarted", "type": "error" },
+  { "inputs": [], "name": "InvalidAddress", "type": "error" },
   {
-    "inputs": [],
-    "name": "EnforcedPause",
+    "inputs": [{ "internalType": "bytes1", "name": "b", "type": "bytes1" }],
+    "name": "InvalidByte",
     "type": "error"
   },
-  {
-    "inputs": [],
-    "name": "ExpectedPause",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "FailedInnerCall",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "InvalidInitialization",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "NotInitializing",
-    "type": "error"
-  },
+  { "inputs": [], "name": "InvalidInitialization", "type": "error" },
+  { "inputs": [], "name": "InvalidMinBetAmount", "type": "error" },
+  { "inputs": [], "name": "InvalidTimespanRelation", "type": "error" },
+  { "inputs": [], "name": "NotBettable", "type": "error" },
+  { "inputs": [], "name": "NotClaimable", "type": "error" },
+  { "inputs": [], "name": "NotInitializing", "type": "error" },
+  { "inputs": [], "name": "NotRefundable", "type": "error" },
+  { "inputs": [], "name": "OnlyAdmin", "type": "error" },
+  { "inputs": [], "name": "OnlyAdminOrOperator", "type": "error" },
+  { "inputs": [], "name": "OnlyEOA", "type": "error" },
+  { "inputs": [], "name": "OnlyOperator", "type": "error" },
+  { "inputs": [], "name": "OutdatedExchangeRate", "type": "error" },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "owner",
-        "type": "address"
-      }
+      { "internalType": "address", "name": "owner", "type": "address" }
     ],
     "name": "OwnableInvalidOwner",
     "type": "error"
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "account",
-        "type": "address"
-      }
+      { "internalType": "address", "name": "account", "type": "address" }
     ],
     "name": "OwnableUnauthorizedAccount",
     "type": "error"
   },
-  {
-    "inputs": [],
-    "name": "ReentrancyGuardReentrantCall",
-    "type": "error"
-  },
+  { "inputs": [], "name": "ReentrancyGuardReentrantCall", "type": "error" },
+  { "inputs": [], "name": "RewardsAlreadyCalculated", "type": "error" },
+  { "inputs": [], "name": "RoundNMinus2ClosingTimeNotPassed", "type": "error" },
+  { "inputs": [], "name": "RoundNMinus2MustBeClosed", "type": "error" },
+  { "inputs": [], "name": "RoundNotLocked", "type": "error" },
+  { "inputs": [], "name": "RoundNotOverYet", "type": "error" },
+  { "inputs": [], "name": "RoundNotStartedYet", "type": "error" },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "token",
-        "type": "address"
-      }
+      { "internalType": "address", "name": "token", "type": "address" }
     ],
     "name": "SafeERC20FailedOperation",
     "type": "error"
   },
+  { "inputs": [], "name": "SeiTransferFailed", "type": "error" },
+  { "inputs": [], "name": "TreasuryFeeTooHigh", "type": "error" },
+  { "inputs": [], "name": "UnsupportedToken", "type": "error" },
   {
     "anonymous": false,
     "inputs": [
@@ -109,34 +95,15 @@
         "internalType": "uint256",
         "name": "amount",
         "type": "uint256"
-      }
-    ],
-    "name": "BetBear",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "sender",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "epoch",
-        "type": "uint256"
       },
       {
         "indexed": false,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
+        "internalType": "bool",
+        "name": "bull",
+        "type": "bool"
       }
     ],
-    "name": "BetBull",
+    "name": "Bet",
     "type": "event"
   },
   {
@@ -175,9 +142,9 @@
       },
       {
         "indexed": false,
-        "internalType": "int256",
+        "internalType": "uint256",
         "name": "price",
-        "type": "int256"
+        "type": "uint256"
       }
     ],
     "name": "EndRound",
@@ -207,9 +174,9 @@
       },
       {
         "indexed": false,
-        "internalType": "int256",
+        "internalType": "uint256",
         "name": "price",
-        "type": "int256"
+        "type": "uint256"
       }
     ],
     "name": "LockRound",
@@ -277,38 +244,6 @@
       }
     ],
     "name": "NewOperatorAddress",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "oracle",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "bytes32",
-        "name": "priceFeedId",
-        "type": "bytes32"
-      }
-    ],
-    "name": "NewOracleAndPriceFeedId",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "oracleUpdateAllowance",
-        "type": "uint256"
-      }
-    ],
-    "name": "NewOracleUpdateAllowance",
     "type": "event"
   },
   {
@@ -480,51 +415,23 @@
   {
     "inputs": [],
     "name": "MAX_TREASURY_FEE",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "adminAddress",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "epoch",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "epoch", "type": "uint256" },
+      { "internalType": "bool", "name": "bull", "type": "bool" }
     ],
-    "name": "betBear",
-    "outputs": [],
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "epoch",
-        "type": "uint256"
-      }
-    ],
-    "name": "betBull",
+    "name": "bet",
     "outputs": [],
     "stateMutability": "payable",
     "type": "function"
@@ -532,23 +439,13 @@
   {
     "inputs": [],
     "name": "bufferSeconds",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      {
-        "internalType": "uint256[]",
-        "name": "epochs",
-        "type": "uint256[]"
-      }
+      { "internalType": "uint256[]", "name": "epochs", "type": "uint256[]" }
     ],
     "name": "claim",
     "outputs": [],
@@ -564,38 +461,18 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "epoch",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      }
+      { "internalType": "uint256", "name": "epoch", "type": "uint256" },
+      { "internalType": "address", "name": "user", "type": "address" }
     ],
     "name": "claimable",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "currentEpoch",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -609,13 +486,7 @@
   {
     "inputs": [],
     "name": "genesisLockOnce",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -629,13 +500,7 @@
   {
     "inputs": [],
     "name": "genesisStartOnce",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -648,96 +513,45 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "cursor",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "size",
-        "type": "uint256"
-      }
+      { "internalType": "address", "name": "user", "type": "address" },
+      { "internalType": "uint256", "name": "cursor", "type": "uint256" },
+      { "internalType": "uint256", "name": "size", "type": "uint256" }
     ],
     "name": "getUserRounds",
     "outputs": [
-      {
-        "internalType": "uint256[]",
-        "name": "",
-        "type": "uint256[]"
-      },
+      { "internalType": "uint256[]", "name": "", "type": "uint256[]" },
       {
         "components": [
           {
-            "internalType": "enum PredictionsV2.Position",
+            "internalType": "enum IPrediction.Position",
             "name": "position",
             "type": "uint8"
           },
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "claimed",
-            "type": "bool"
-          }
+          { "internalType": "uint256", "name": "amount", "type": "uint256" },
+          { "internalType": "bool", "name": "claimed", "type": "bool" }
         ],
-        "internalType": "struct PredictionsV2.BetInfo[]",
+        "internalType": "struct IPrediction.BetInfo[]",
         "name": "",
         "type": "tuple[]"
       },
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "", "type": "uint256" }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      }
+      { "internalType": "address", "name": "user", "type": "address" }
     ],
     "name": "getUserRoundsLength",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "_owner",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_oracleAddress",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_adminAddress",
-        "type": "address"
-      },
+      { "internalType": "address", "name": "_owner", "type": "address" },
+      { "internalType": "address", "name": "_adminAddress", "type": "address" },
       {
         "internalType": "address",
         "name": "_operatorAddress",
@@ -753,26 +567,9 @@
         "name": "_bufferSeconds",
         "type": "uint256"
       },
-      {
-        "internalType": "uint256",
-        "name": "_minBetAmount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_oracleUpdateAllowance",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "_priceFeedId",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_treasuryFee",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "_minBetAmount", "type": "uint256" },
+      { "internalType": "uint256", "name": "_treasuryFee", "type": "uint256" },
+      { "internalType": "string", "name": "_tokenDenom", "type": "string" }
     ],
     "name": "initialize",
     "outputs": [],
@@ -782,46 +579,24 @@
   {
     "inputs": [],
     "name": "intervalSeconds",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
+      { "internalType": "uint256", "name": "", "type": "uint256" },
+      { "internalType": "address", "name": "", "type": "address" }
     ],
     "name": "ledger",
     "outputs": [
       {
-        "internalType": "enum PredictionsV2.Position",
+        "internalType": "enum IPrediction.Position",
         "name": "position",
         "type": "uint8"
       },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "claimed",
-        "type": "bool"
-      }
+      { "internalType": "uint256", "name": "amount", "type": "uint256" },
+      { "internalType": "bool", "name": "claimed", "type": "bool" }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -829,52 +604,21 @@
   {
     "inputs": [],
     "name": "minBetAmount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "operatorAddress",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "oracleUpdateAllowance",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "owner",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -888,54 +632,18 @@
   {
     "inputs": [],
     "name": "paused",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "priceFeedId",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "pythOracle",
-    "outputs": [
-      {
-        "internalType": "contract IPyth",
-        "name": "",
-        "type": "address"
-      }
-    ],
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
       {
-        "internalType": "address",
+        "internalType": "contract IERC20",
         "name": "_token",
         "type": "address"
       },
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" }
     ],
     "name": "recoverToken",
     "outputs": [],
@@ -944,25 +652,11 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "epoch",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      }
+      { "internalType": "uint256", "name": "epoch", "type": "uint256" },
+      { "internalType": "address", "name": "user", "type": "address" }
     ],
     "name": "refundable",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -975,114 +669,56 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "epoch",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "epoch", "type": "uint256" }
     ],
     "name": "roundStats",
     "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "poolSize",
-        "type": "uint256"
-      },
+      { "internalType": "uint256", "name": "poolSize", "type": "uint256" },
       {
         "internalType": "uint256",
         "name": "bullMultiplier",
         "type": "uint256"
       },
-      {
-        "internalType": "uint256",
-        "name": "bearMultiplier",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "bearMultiplier", "type": "uint256" }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "name": "rounds",
     "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "epoch",
-        "type": "uint256"
-      },
+      { "internalType": "uint256", "name": "epoch", "type": "uint256" },
       {
         "internalType": "uint256",
         "name": "startTimestamp",
         "type": "uint256"
       },
-      {
-        "internalType": "uint256",
-        "name": "lockTimestamp",
-        "type": "uint256"
-      },
+      { "internalType": "uint256", "name": "lockTimestamp", "type": "uint256" },
       {
         "internalType": "uint256",
         "name": "closeTimestamp",
         "type": "uint256"
       },
-      {
-        "internalType": "int256",
-        "name": "lockPrice",
-        "type": "int256"
-      },
-      {
-        "internalType": "int256",
-        "name": "closePrice",
-        "type": "int256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "totalAmount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "bullAmount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "bearAmount",
-        "type": "uint256"
-      },
+      { "internalType": "uint256", "name": "lockPrice", "type": "uint256" },
+      { "internalType": "uint256", "name": "closePrice", "type": "uint256" },
+      { "internalType": "uint256", "name": "totalAmount", "type": "uint256" },
+      { "internalType": "uint256", "name": "bullAmount", "type": "uint256" },
+      { "internalType": "uint256", "name": "bearAmount", "type": "uint256" },
       {
         "internalType": "uint256",
         "name": "rewardBaseCalAmount",
         "type": "uint256"
       },
-      {
-        "internalType": "uint256",
-        "name": "rewardAmount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "oracleCalled",
-        "type": "bool"
-      }
+      { "internalType": "uint256", "name": "rewardAmount", "type": "uint256" },
+      { "internalType": "bool", "name": "oracleCalled", "type": "bool" }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "_adminAddress",
-        "type": "address"
-      }
+      { "internalType": "address", "name": "_adminAddress", "type": "address" }
     ],
     "name": "setAdmin",
     "outputs": [],
@@ -1109,11 +745,7 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_minBetAmount",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "_minBetAmount", "type": "uint256" }
     ],
     "name": "setMinBetAmount",
     "outputs": [],
@@ -1135,42 +767,7 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "_oracle",
-        "type": "address"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "_priceFeedId",
-        "type": "bytes32"
-      }
-    ],
-    "name": "setOracleAndPriceFeedId",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_oracleUpdateAllowance",
-        "type": "uint256"
-      }
-    ],
-    "name": "setOracleUpdateAllowance",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_treasuryFee",
-        "type": "uint256"
-      }
+      { "internalType": "uint256", "name": "_treasuryFee", "type": "uint256" }
     ],
     "name": "setTreasuryFee",
     "outputs": [],
@@ -1178,12 +775,24 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "token",
+    "outputs": [
+      { "internalType": "contract IERC20", "name": "", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "tokenDenom",
+    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "newOwner",
-        "type": "address"
-      }
+      { "internalType": "address", "name": "newOwner", "type": "address" }
     ],
     "name": "transferOwnership",
     "outputs": [],
@@ -1193,26 +802,14 @@
   {
     "inputs": [],
     "name": "treasuryAmount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "treasuryFee",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -1225,25 +822,11 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "uint256", "name": "", "type": "uint256" }
     ],
     "name": "userRounds",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   }

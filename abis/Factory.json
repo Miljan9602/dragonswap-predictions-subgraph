@@ -98,6 +98,12 @@
         "internalType": "uint256",
         "name": "treasuryFee",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "tokenDenom",
+        "type": "string"
       }
     ],
     "name": "Deployed",
@@ -143,6 +149,29 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "adminAddress", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "operatorAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "intervalSeconds",
+        "type": "uint256"
+      },
+      { "internalType": "uint256", "name": "bufferSeconds", "type": "uint256" },
+      { "internalType": "uint256", "name": "minBetAmount", "type": "uint256" },
+      { "internalType": "uint256", "name": "treasuryFee", "type": "uint256" },
+      { "internalType": "string", "name": "tokenDenom", "type": "string" }
+    ],
+    "name": "deployPredictionV2",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
       { "internalType": "address", "name": "oracleAddress", "type": "address" },
       { "internalType": "address", "name": "adminAddress", "type": "address" },
       {
@@ -165,7 +194,31 @@
       { "internalType": "bytes32", "name": "priceFeedId", "type": "bytes32" },
       { "internalType": "uint256", "name": "treasuryFee", "type": "uint256" }
     ],
-    "name": "deployPredictionV2",
+    "name": "deployPredictionV2Pyth",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "token", "type": "address" },
+      { "internalType": "address", "name": "adminAddress", "type": "address" },
+      {
+        "internalType": "address",
+        "name": "operatorAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "intervalSeconds",
+        "type": "uint256"
+      },
+      { "internalType": "uint256", "name": "bufferSeconds", "type": "uint256" },
+      { "internalType": "uint256", "name": "minBetAmount", "type": "uint256" },
+      { "internalType": "uint256", "name": "treasuryFee", "type": "uint256" },
+      { "internalType": "string", "name": "tokenDenom", "type": "string" }
+    ],
+    "name": "deployPredictionV3",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -195,24 +248,7 @@
       { "internalType": "bytes32", "name": "priceFeedId", "type": "bytes32" },
       { "internalType": "uint256", "name": "treasuryFee", "type": "uint256" }
     ],
-    "name": "deployPredictionV3",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "adminAddress", "type": "address" },
-      {
-        "internalType": "address",
-        "name": "operatorAddress",
-        "type": "address"
-      },
-      { "internalType": "uint256", "name": "minBetAmount", "type": "uint256" },
-      { "internalType": "uint256", "name": "treasuryFee", "type": "uint256" },
-      { "internalType": "uint256", "name": "round", "type": "uint256" }
-    ],
-    "name": "deployPredictionV4",
+    "name": "deployPredictionV3Pyth",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -269,6 +305,13 @@
   },
   {
     "inputs": [],
+    "name": "implPredictionV2Pyth",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "implPredictionV3",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
@@ -276,7 +319,7 @@
   },
   {
     "inputs": [],
-    "name": "implPredictionV4",
+    "name": "implPredictionV3Pyth",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
@@ -324,6 +367,15 @@
     "inputs": [
       { "internalType": "address", "name": "implementation", "type": "address" }
     ],
+    "name": "setImplementationPredictionV2Pyth",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "implementation", "type": "address" }
+    ],
     "name": "setImplementationPredictionV3",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -333,7 +385,7 @@
     "inputs": [
       { "internalType": "address", "name": "implementation", "type": "address" }
     ],
-    "name": "setImplementationPredictionV4",
+    "name": "setImplementationPredictionV3Pyth",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

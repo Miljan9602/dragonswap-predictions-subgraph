@@ -1,6 +1,5 @@
 import {
-  BetBear as BetBearEvent,
-  BetBull as BetBullEvent,
+  Bet as BetEvent,
   Claim as ClaimEvent,
   EndRound as EndRoundEvent,
   LockRound as LockRoundEvent,
@@ -9,8 +8,7 @@ import {
 import {Epoch, Game, PredicitionUserStats, Prediction,} from "../generated/schema"
 import {Address, BigDecimal, BigInt, Bytes, ethereum} from "@graphprotocol/graph-ts";
 
-export function handleBetBear(event: BetBearEvent): void {
-
+export function handleBet(event: BetEvent): void {
   let userStats = getOrCreatePredictionUserStats(event.address.toHexString(), event.params.sender.toHexString())
   let instance = Prediction.load(event.address)
 
@@ -18,7 +16,12 @@ export function handleBetBear(event: BetBearEvent): void {
     throw new Error('Prediction not found for bet with instance: ' + event.address.toHexString())
   }
 
-  instance.totalBearBets = instance.totalBearBets.plus(BigInt.fromI32(1))
+  if (event.params.bull) {
+    instance.totalBullBets = instance.totalBullBets.plus(BigInt.fromI32(1))
+  } else {
+    instance.totalBearBets = instance.totalBearBets.plus(BigInt.fromI32(1))
+  }
+
   instance.totalBets = instance.totalBets.plus(BigInt.fromI32(1))
   instance.totalVolume = instance.totalVolume.plus(event.params.amount)
 
@@ -28,15 +31,26 @@ export function handleBetBear(event: BetBearEvent): void {
 
   instance.save()
 
+  if (event.params.bull) {
+    userStats.totalBullBets = userStats.totalBullBets.plus(BigInt.fromI32(1))
+  } else {
+    userStats.totalBearBets = userStats.totalBearBets.plus(BigInt.fromI32(1))
+  }
+
   userStats.totalBets = userStats.totalBets.plus(BigInt.fromI32(1))
-  userStats.totalBearBets = userStats.totalBearBets.plus(BigInt.fromI32(1))
   userStats.save()
 
   getOrCreateEpoch(event.address, event.params.epoch, event.block);
 
   let epoch = getOrCreateEpoch(event.address, event.params.epoch, event.block);
   epoch.bearBetAmount = epoch.bearBetAmount.plus(event.params.amount)
-  epoch.bearBetsCount = epoch.bearBetsCount.plus(BigInt.fromI32(1))
+
+  if (event.params.bull) {
+    epoch.bullBetsCount = epoch.bullBetsCount.plus(BigInt.fromI32(1))
+  } else {
+    epoch.bearBetsCount = epoch.bearBetsCount.plus(BigInt.fromI32(1))
+  }
+
   epoch.totalBetAmount = epoch.totalBetAmount.plus(event.params.amount)
   epoch.lastUpdatedAtTimestamp = event.block.timestamp
   epoch.lastUpdatedAtBlockNumber = event.block.number
@@ -49,55 +63,7 @@ export function handleBetBear(event: BetBearEvent): void {
   entity.amount = event.params.amount
   entity.isClaimed = false
   entity.epoch = event.params.epoch
-  entity.isBullBet = false
-  entity.claimedAmount = BigInt.zero()
-  entity.lastUpdatedAtTimestamp = event.block.timestamp
-  entity.lastUpdatedAtBlockNumber = event.block.number
-  entity.placeBetTxHash = event.transaction.hash.toHexString()
-  entity.placeBetTimestamp = event.block.timestamp
-  entity.save()
-}
-
-export function handleBetBull(event: BetBullEvent): void {
-
-  let userStats = getOrCreatePredictionUserStats(event.address.toHexString(), event.params.sender.toHexString())
-  let instance = Prediction.load(event.address)
-
-  if (instance === null) {
-    throw new Error('Prediction not found for bet with instance: ' + event.address.toHexString())
-  }
-
-  instance.totalBullBets = instance.totalBullBets.plus(BigInt.fromI32(1))
-  instance.totalBets = instance.totalBets.plus(BigInt.fromI32(1))
-  instance.totalVolume = instance.totalVolume.plus(event.params.amount)
-
-  if (userStats.totalBets.equals(BigInt.zero())) {
-    instance.numberOfUniqueUsers = instance.numberOfUniqueUsers.plus(BigInt.fromI32(1))
-  }
-
-  instance.save()
-
-  userStats.totalBets = userStats.totalBets.plus(BigInt.fromI32(1))
-  userStats.totalBearBets = userStats.totalBearBets.plus(BigInt.fromI32(1))
-  userStats.save()
-
-  let epoch = getOrCreateEpoch(event.address, event.params.epoch, event.block);
-  epoch.bullBetAmount = epoch.bullBetAmount.plus(event.params.amount)
-  epoch.bullBetsCount = epoch.bullBetsCount.plus(BigInt.fromI32(1))
-  epoch.totalBetAmount = epoch.totalBetAmount.plus(event.params.amount)
-  epoch.lastUpdatedAtTimestamp = event.block.timestamp
-  epoch.lastUpdatedAtBlockNumber = event.block.number
-  epoch.save()
-
-  let gameId = event.address.toHexString().concat('-').concat(event.params.sender.toHexString()).concat('').concat(event.params.epoch.toString())
-
-  let entity = new Game(gameId)
-  entity.instance = event.address.toHexString()
-  entity.sender = event.params.sender
-  entity.amount = event.params.amount
-  entity.isClaimed = false
-  entity.epoch = event.params.epoch
-  entity.isBullBet = true
+  entity.isBullBet = event.params.bull
   entity.claimedAmount = BigInt.zero()
   entity.lastUpdatedAtTimestamp = event.block.timestamp
   entity.lastUpdatedAtBlockNumber = event.block.number
