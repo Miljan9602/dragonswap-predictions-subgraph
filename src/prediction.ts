@@ -104,7 +104,7 @@ export function handleLockRound(event: LockRoundEvent): void {
 
   let epoch = getOrCreateEpoch(event.address, event.params.epoch, event.block);
 
-  epoch.startPrice = event.params.price.toBigDecimal().div(exponentToBigDecimal(BigInt.fromI32(8)))
+  epoch.startPrice = event.params.price.toBigDecimal().div(exponentToBigDecimal(BigInt.fromI32(18)))
   epoch.lastUpdatedAtTimestamp = event.block.timestamp
   epoch.lastUpdatedAtBlockNumber = event.block.number
   epoch.save()
@@ -115,7 +115,7 @@ export function handleEndRound(event: EndRoundEvent): void {
   getOrCreateEpoch(event.address, event.params.epoch, event.block);
   let epoch = getOrCreateEpoch(event.address, event.params.epoch, event.block);
 
-  epoch.closePrice = event.params.price.toBigDecimal().div(exponentToBigDecimal(BigInt.fromI32(8)))
+  epoch.closePrice = event.params.price.toBigDecimal().div(exponentToBigDecimal(BigInt.fromI32(18)))
   epoch.lastUpdatedAtTimestamp = event.block.timestamp
   epoch.isBullWin = epoch.closePrice > epoch.startPrice
   epoch.isBearWin = epoch.closePrice < epoch.startPrice
