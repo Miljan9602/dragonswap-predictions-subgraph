@@ -40,14 +40,13 @@ export function handleBet(event: BetEvent): void {
   userStats.totalBets = userStats.totalBets.plus(BigInt.fromI32(1))
   userStats.save()
 
-  getOrCreateEpoch(event.address, event.params.epoch, event.block);
-
   let epoch = getOrCreateEpoch(event.address, event.params.epoch, event.block);
-  epoch.bearBetAmount = epoch.bearBetAmount.plus(event.params.amount)
 
   if (event.params.bull) {
     epoch.bullBetsCount = epoch.bullBetsCount.plus(BigInt.fromI32(1))
+    epoch.bullBetAmount = epoch.bearBetAmount.plus(event.params.amount)
   } else {
+    epoch.bearBetAmount = epoch.bearBetAmount.plus(event.params.amount)
     epoch.bearBetsCount = epoch.bearBetsCount.plus(BigInt.fromI32(1))
   }
 
@@ -99,9 +98,6 @@ export function handleStartRound(event: StartRoundEvent): void {
 }
 
 export function handleLockRound(event: LockRoundEvent): void {
-
-  getOrCreateEpoch(event.address, event.params.epoch, event.block);
-
   let epoch = getOrCreateEpoch(event.address, event.params.epoch, event.block);
 
   epoch.startPrice = event.params.price.toBigDecimal().div(exponentToBigDecimal(BigInt.fromI32(18)))
@@ -112,7 +108,6 @@ export function handleLockRound(event: LockRoundEvent): void {
 
 export function handleEndRound(event: EndRoundEvent): void {
 
-  getOrCreateEpoch(event.address, event.params.epoch, event.block);
   let epoch = getOrCreateEpoch(event.address, event.params.epoch, event.block);
 
   epoch.closePrice = event.params.price.toBigDecimal().div(exponentToBigDecimal(BigInt.fromI32(18)))
