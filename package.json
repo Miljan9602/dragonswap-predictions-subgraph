@@ -10,7 +10,7 @@
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 dragonswap-predictions",
     "test": "graph test",
 
-    "goldsky-prod" : "goldsky subgraph deploy dragonswap-predictions/1.0.6 --path ."
+    "goldsky-prod" : "goldsky subgraph deploy dragonswap-predictions/1.0.7 --path ."
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.78.0",

@@ -78,7 +78,7 @@ export function handleClaim(event: ClaimEvent): void {
   let entity = Game.load(gameId)
 
   if (entity === null) {
-    console.log('Game not found for claim with gameId: '+gameId+' -> data:' + event.params.epoch.toString() + ' instance: ' + event.address.toHexString() + ' sender: ' + event.params.sender.toHexString())
+    // console.log('Game not found for claim with gameId: '+gameId+' -> data:' + event.params.epoch.toString() + ' instance: ' + event.address.toHexString() + ' sender: ' + event.params.sender.toHexString())
     return;
     // throw new Error('Game not found for claim with gameId: '+gameId+' -> data:' + event.params.epoch.toString() + ' instance: ' + event.address.toHexString() + ' sender: ' + event.params.sender.toHexString())
   }
