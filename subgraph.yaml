@@ -3,16 +3,14 @@ indexerHints:
   prune: auto
 schema:
   file: ./schema.graphql
-features:
-  - nonFatalErrors
 dataSources:
   - kind: ethereum/contract
     name: Factory
     network: sei
     source:
-      address: "0xB6bA61B2Ed4A983F12b5b507255047C239eE1012"
+      address: "0x449F992f3C352f3dD974712a5B4D7D28f47fb3e9"
       abi: Factory
-      startBlock: 116097601
+      startBlock: 116445765
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
